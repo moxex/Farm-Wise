@@ -8,7 +8,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getAllProductsShop } from "../../redux/actions/product";
-import { server } from "../../server";
+import { backend_url, server } from "../../server";
 import styles from "../../styles/styles";
 import {
   addToWishlist,
@@ -16,7 +16,7 @@ import {
 } from "../../redux/actions/wishlist";
 import { addTocart } from "../../redux/actions/cart";
 import { toast } from "react-toastify";
-// import Ratings from "./Ratings";
+import Ratings from "./Ratings";
 import axios from "axios";
 
 const ProductDetails = ({ data }) => {
@@ -74,21 +74,21 @@ const ProductDetails = ({ data }) => {
     }
   };
 
-  // const totalReviewsLength =
-  //   products &&
-  //   products.reduce((acc, product) => acc + product.reviews.length, 0);
+  const totalReviewsLength =
+    products &&
+    products.reduce((acc, product) => acc + product.reviews.length, 0);
 
-  // const totalRatings =
-  //   products &&
-  //   products.reduce(
-  //     (acc, product) =>
-  //       acc + product.reviews.reduce((sum, review) => sum + review.rating, 0),
-  //     0
-  //   );
+  const totalRatings =
+    products &&
+    products.reduce(
+      (acc, product) =>
+        acc + product.reviews.reduce((sum, review) => sum + review.rating, 0),
+      0
+    );
 
-  // const avg = totalRatings / totalReviewsLength || 0;
+  const avg = totalRatings / totalReviewsLength || 0;
 
-  // const averageRating = avg.toFixed(2);
+  const averageRating = avg.toFixed(2);
 
   const handleMessageSubmit = async () => {
     // if (isAuthenticated) {
@@ -120,7 +120,7 @@ const ProductDetails = ({ data }) => {
             <div className="block w-full 800px:flex">
               <div className="w-full 800px:w-[50%]">
                 <img
-                  src={`${data && data.images[select]?.url}`}
+                  src={`${backend_url}${data.images && data.images[0]}`}
                   alt=""
                   className="w-[80%]"
                 />
@@ -220,7 +220,7 @@ const ProductDetails = ({ data }) => {
                       </h3>
                     </Link>
                     <h5 className="pb-3 text-[15px]">
-                      {/* ({averageRating}/5) Ratings */}
+                      ({averageRating}/5) Ratings
                     </h5>
                   </div>
                   <div
@@ -238,8 +238,8 @@ const ProductDetails = ({ data }) => {
           <ProductDetailsInfo
             data={data}
             products={products}
-            // totalReviewsLength={totalReviewsLength}
-            // averageRating={averageRating}
+            totalReviewsLength={totalReviewsLength}
+            averageRating={averageRating}
           />
           <br />
           <br />
@@ -321,7 +321,7 @@ const ProductDetailsInfo = ({
                 <div className="pl-2 ">
                   <div className="w-full flex items-center">
                     <h1 className="font-[500] mr-3">{item.user.name}</h1>
-                    {/* <Ratings rating={data?.ratings} /> */}
+                    <Ratings rating={data?.ratings} />
                   </div>
                   <p>{item.comment}</p>
                 </div>

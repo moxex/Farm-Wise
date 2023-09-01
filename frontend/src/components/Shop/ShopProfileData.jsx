@@ -5,7 +5,7 @@ import { getAllProductsShop } from "../../redux/actions/product";
 import styles from "../../styles/styles";
 import { productData } from "../../static/data";
 import ProductCard from "../Route/ProductCard/ProductCard";
-// import Ratings from "../Products/Ratings";
+import Ratings from "../Products/Ratings";
 import { getAllEventsShop } from "../../redux/actions/event";
 
 const ShopProfileData = ({ isOwner }) => {
@@ -114,7 +114,7 @@ const ShopProfileData = ({ isOwner }) => {
                 <div className="pl-2">
                   <div className="flex w-full items-center">
                     <h1 className="font-[600] pr-2">{item.user.name}</h1>
-                    {/* <Ratings rating={item.rating} /> */}
+                    <Ratings rating={item.rating} />
                   </div>
                   <p className="font-[400] text-[#000000a7]">{item?.comment}</p>
                   <p className="text-[#000000a7] text-[14px]">{"2days ago"}</p>
